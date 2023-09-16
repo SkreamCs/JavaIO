@@ -1,0 +1,46 @@
+{
+  "3": {
+    "id": 3,
+    "firstName": "Andrey",
+    "lastName": "Gul",
+    "posts": [
+      {
+        "id": 22,
+        "content": "extreme",
+        "created": "normal",
+        "updated": "usually",
+        "labels": [
+          {
+            "id": 111,
+            "name": "Kur",
+            "state": "ACTIVE"
+          }
+        ],
+        "state": "UNDER_REVIEW"
+      }
+    ],
+    "state": "UNDER_REVIEW"
+  },
+  "12345": {
+    "id": 12345,
+    "firstName": "Jorj",
+    "lastName": "Fair",
+    "posts": [
+      {
+        "id": 66,
+        "content": "kik",
+        "created": "ni",
+        "updated": "oi",
+        "labels": [
+          {
+            "id": 99,
+            "name": "JUT",
+            "state": "ACTIVE"
+          }
+        ],
+        "state": "ACTIVE"
+      }
+    ],
+    "state": "ACTIVE"
+  }
+}
