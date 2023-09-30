@@ -1,5 +1,9 @@
-package org.example.postObject;
+package org.abdul.crudApp.view;
 
+
+import org.abdul.crudApp.controller.PostController;
+import org.abdul.crudApp.model.Post;
+import org.abdul.crudApp.repository.GsonPostRepositoryImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,9 +12,9 @@ import java.util.Scanner;
 public class PostViewer {
     public void postStart() {
         Scanner scanner = new Scanner(System.in);
-        GsonPostRepository repository = new GsonPostRepository("posts.json");
+        GsonPostRepositoryImpl repository = new GsonPostRepositoryImpl();
         PostController controller = new PostController(repository);
-        File file = new File("/Users/mustafatumgoev/WriterAndReader/posts.json");
+        File file = new File("/Users/mustafatumgoev/WriterAndReader/src/main/resources/posts.json");
         try {
             file.createNewFile();
         } catch (IOException e) {
@@ -38,15 +42,14 @@ public class PostViewer {
                 case 3: {
                     System.out.println("Введите id обьекта который хотите получить");
                     int id = scanner.nextInt();
-                    Post postJsonObject = repository.findGsonObject(id);
+                    Post postJsonObject = repository.getById(id);
                     System.out.println(postJsonObject.toString());
-                    repository.save(postJsonObject);
                     break;
                 }
                 case 4: {
                     System.out.println("Введите id обьекта");
                     int id = scanner.nextInt();
-                    repository.delete(id);
+                    repository.deleteById(id);
                     break;
                 }
                 case 5: {

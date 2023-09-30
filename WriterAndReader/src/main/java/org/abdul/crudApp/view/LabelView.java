@@ -1,4 +1,8 @@
-package org.example.labelObject;
+package org.abdul.crudApp.view;
+
+import org.abdul.crudApp.controller.LabelController;
+import org.abdul.crudApp.model.Label;
+import org.abdul.crudApp.repository.GsonLabelRepositoryImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,13 +11,13 @@ import java.util.Scanner;
 public class LabelView {
     public void labelStart() {
         Scanner scannerLabel = new Scanner(System.in);
-        File file = new File("/Users/mustafatumgoev/WriterAndReader/labels.json");
+        File file = new File("/Users/mustafatumgoev/WriterAndReader/src/main/resources/labels.json");
         try {
             file.createNewFile();
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        GsonLabelRepository repository = new GsonLabelRepository("labels.json");
+        GsonLabelRepositoryImpl repository = new GsonLabelRepositoryImpl();
         LabelController controller = new LabelController(repository);
         boolean end = true;
         while (end) {
@@ -37,16 +41,15 @@ public class LabelView {
                 case 3: {
                     System.out.println("Введите id обьекта");
                     int id = scannerLabel.nextInt();
-                    repository.delete(id);
+                    repository.deleteById(id);
                     System.out.println("Обьект успешно удален");
                     break;
                 }
                 case 4: {
                     System.out.println("Введите id обьекта который хотите получить");
                     int id = scannerLabel.nextInt();
-                    Label labelJsonObject = repository.findGsonObject(id);
+                    Label labelJsonObject = repository.getById(id);
                     System.out.println(labelJsonObject.toString());
-                    repository.save(labelJsonObject);
                     break;
                 }
                 case 5: {

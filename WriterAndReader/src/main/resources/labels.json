@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "name": "kukushka",
+    "state": "UNDER_REVIEW"
+  },
+  {
+    "id": 2,
+    "name": "ama",
+    "state": "UNDER_REVIEW"
+  },
+  {
+    "id": 3,
+    "name": "5",
+    "state": "ACTIVE"
+  },
+  {
+    "id": 4,
+    "name": "namr",
+    "state": "ACTIVE"
+  }
+]

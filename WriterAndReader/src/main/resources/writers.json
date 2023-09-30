@@ -1,0 +1,24 @@
+[
+  {
+    "id": 1,
+    "firstName": "nukleino",
+    "lastName": "kik",
+    "posts": [
+      {
+        "id": 123,
+        "content": "ningar",
+        "created": "ii",
+        "updated": "ooo",
+        "labels": [
+          {
+            "id": 12234,
+            "name": "MMA",
+            "state": "ACTIVE"
+          }
+        ],
+        "state": "ACTIVE"
+      }
+    ],
+    "state": "UNDER_REVIEW"
+  }
+]

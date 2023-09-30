@@ -1,4 +1,8 @@
-package org.example.writerObject;
+package org.abdul.crudApp.view;
+
+import org.abdul.crudApp.controller.WriterController;
+import org.abdul.crudApp.model.Writer;
+import org.abdul.crudApp.repository.GsonWriterRepositoryImpl;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,9 +11,9 @@ import java.util.Scanner;
 public class WriterView {
     public void writerStart() {
         Scanner scanner = new Scanner(System.in);
-        GsonWriterRepository repository = new GsonWriterRepository("writers.json");
+        GsonWriterRepositoryImpl repository = new GsonWriterRepositoryImpl();
         WriterController controller = new WriterController(repository);
-        File file = new File("/Users/mustafatumgoev/WriterAndReader/writers.json");
+        File file = new File("/Users/mustafatumgoev/WriterAndReader/src/main/resources/writers.json");
         try {
             file.createNewFile();
         } catch (IOException e) {
@@ -38,16 +42,15 @@ public class WriterView {
                 case 3: {
                     System.out.println("Введите id обьекта");
                     int id = scanner.nextInt();
-                    repository.delete(id);
+                    repository.deleteById(id);
                     System.out.println("Обьект успешно удален");
                     break;
                 }
                 case 4: {
                     System.out.println("Введите id обьекта который хотите получить");
                     int id = scanner.nextInt();
-                    Writer writerJsonObject = repository.findGsonObject(id);
+                    Writer writerJsonObject = repository.getById(id);
                     System.out.println(writerJsonObject.toString());
-                    repository.save(writerJsonObject);
                     break;
                 }
                 case 5: {

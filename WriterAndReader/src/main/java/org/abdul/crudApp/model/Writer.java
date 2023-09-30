@@ -1,10 +1,6 @@
-package org.example.writerObject;
-
-import org.example.PostStatus;
-import org.example.postObject.Post;
+package org.abdul.crudApp.model;
 
 import java.util.List;
-import java.util.Objects;
 
 public class Writer {
     private int id;
@@ -13,24 +9,15 @@ public class Writer {
     private List<Post> posts;
     private PostStatus state;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Writer writer = (Writer) o;
-        return id == writer.id && Objects.equals(firstName, writer.firstName) && Objects.equals(lastName, writer.lastName) && Objects.equals(posts, writer.posts);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, posts);
-    }
-
-    public Writer(int id, String firstName, String lastName, List<Post> posts) {
-        this.id = id;
+    public Writer(String firstName, String lastName, List<Post> posts) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.posts = posts;
+    }
+
+    public PostStatus getState() {
+        return state;
     }
 
     public int getId() {

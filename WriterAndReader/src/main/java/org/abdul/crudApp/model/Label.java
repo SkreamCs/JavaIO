@@ -1,13 +1,9 @@
-package org.example.labelObject;
-
-import org.example.PostStatus;
-
-import java.util.Objects;
+package org.abdul.crudApp.model;
 
 public class Label {
-    int id;
-    String name;
-    PostStatus state;
+    private int id;
+    private String name;
+    private PostStatus state;
 
     @Override
     public String toString() {
@@ -16,19 +12,6 @@ public class Label {
                 ", name='" + name + '\'' +
                 ", state=" + state +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Label label = (Label) o;
-        return id == label.id && Objects.equals(name, label.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
     }
 
     public void setId(int id) {
@@ -55,8 +38,7 @@ public class Label {
         return state;
     }
 
-    public Label(int id, String name) {
-        this.id = id;
+    public Label(String name) {
         this.name = name;
     }
 }

@@ -1,25 +1,24 @@
-package org.example.writerObject;
+package org.abdul.crudApp.controller;
 
-import org.example.PostStatus;
-import org.example.labelObject.Label;
-import org.example.postObject.Post;
+import org.abdul.crudApp.model.Label;
+import org.abdul.crudApp.model.Post;
+import org.abdul.crudApp.model.PostStatus;
+import org.abdul.crudApp.model.Writer;
+import org.abdul.crudApp.repository.GsonWriterRepositoryImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class WriterController {
-    protected GsonWriterRepository gsonWriterRepository;
-    protected Scanner scanner;
+    private final GsonWriterRepositoryImpl gsonWriterRepositoryImpl;
+    private final Scanner scanner = new Scanner(System.in);
 
-    public WriterController(GsonWriterRepository gsonWriterRepository) {
-        this.gsonWriterRepository = gsonWriterRepository;
-        this.scanner = new Scanner(System.in);
+    public WriterController(GsonWriterRepositoryImpl gsonWriterRepositoryImpl) {
+        this.gsonWriterRepositoryImpl = gsonWriterRepositoryImpl;
     }
 
     public void createObject() {
-        System.out.println("Введите id");
-        int id = scanner.nextInt();
         System.out.println("Введите имя для firstName:");
         String firstName = scanner.next();
         System.out.println("Введите lastName");
@@ -28,7 +27,7 @@ public class WriterController {
         int count = scanner.nextInt();
         List<Post> list = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            System.out.println("Создание обьекта номер" + (i + 1));
+            System.out.println("Создание обьекта Post номер " + (i + 1));
             System.out.println("Введите id");
             int idPost = scanner.nextInt();
             System.out.println("Введите значение для свойства content:");
@@ -41,60 +40,56 @@ public class WriterController {
             int numbers = scanner.nextInt();
             List<Label> collectLabel = new ArrayList<>();
             for (int j = 0; j < numbers; j++) {
-                System.out.println("Создание обьекта Label номер" + (j + 1));
+                System.out.println("Создание обьекта Label номер " + (j + 1));
                 System.out.println("Введите id");
                 int idLabel = scanner.nextInt();
                 System.out.println("Введите имя для name:");
                 String name = scanner.next();
-                Label label = new Label(idLabel, name);
+                Label label = new Label(name);
+                label.setId(idLabel);
                 label.setState(PostStatus.ACTIVE);
                 collectLabel.add(label);
             }
-            Post post = new Post(idPost, content, created, updated, collectLabel);
+            Post post = new Post(content, created, updated, collectLabel);
+            post.setId(idPost);
             post.setState(PostStatus.ACTIVE);
             list.add(post);
         }
-        Writer writer = new Writer(id, firstName, lastName, list);
-        writer.setState(PostStatus.ACTIVE);
-        gsonWriterRepository.save(writer);
+        Writer writer = new Writer(firstName, lastName, list);
+        gsonWriterRepositoryImpl.save(writer);
+        System.out.println();
         System.out.println("Обьект успешно создан");
+        System.out.println("ID для созданого обьекта Writer: " + writer.getId());
     }
 
     public void editObject() {
         System.out.println("Введите id сущности, которую хотите изменить:");
         int id = scanner.nextInt();
-        Writer existingWriter = gsonWriterRepository.findGsonObject(id);
+        Writer existingWriter = gsonWriterRepositoryImpl.getById(id);
         if (existingWriter != null) {
             boolean end = true;
             while (end) {
                 System.out.println(
-                        "1.Изменить id обьекта\n" +
-                                "2.Изменить firstName\n" +
-                                "3.Изменить lastName\n" +
-                                "4.Изменить коллекцию типа Post\n" +
-                                "5.Выйти из режима редактирования\n" +
+                        "1.Изменить firstName\n" +
+                                "2.Изменить lastName\n" +
+                                "3.Изменить коллекцию типа Post\n" +
+                                "4.Выйти из режима редактирования\n" +
                                 "Выберите пункт который хотите изменить");
                 int paragraph = scanner.nextInt();
                 switch (paragraph) {
                     case 1: {
-                        System.out.println("Введите новое значение для свойства id:");
-                        int newId = scanner.nextInt();
-                        existingWriter.setId(newId);
-                        break;
-                    }
-                    case 2: {
                         System.out.println("Введите новое значение для свойства firstName:");
                         String firstName = scanner.next();
                         existingWriter.setFirstName(firstName);
                         break;
                     }
-                    case 3: {
+                    case 2: {
                         System.out.println("Введите новое значение для свойства lastName:");
                         String lastName = scanner.next();
                         existingWriter.setLastName(lastName);
                         break;
                     }
-                    case 4: {
+                    case 3: {
                         System.out.println("Выберите номер обьекта Post для изменения");
                         for (int i = 0; i < existingWriter.getPosts().size(); i++) {
                             System.out.println(i + 1 + "." + existingWriter.getPosts().get(i).toString());
@@ -116,7 +111,7 @@ public class WriterController {
                                 case 1: {
                                     System.out.println("Введите новое значение для свойства id:");
                                     int newId = scanner.nextInt();
-                                    existingPost.setId(newId);
+                                    existingWriter.setId(newId);
                                     break;
                                 }
                                 case 2: {
@@ -191,9 +186,8 @@ public class WriterController {
                             }
                         }
                     }
-                    case 5: {
-                        existingWriter.setState(PostStatus.UNDER_REVIEW);
-                        gsonWriterRepository.save(existingWriter);
+                    case 4: {
+                        gsonWriterRepositoryImpl.update(existingWriter);
                         end = false;
                         break;
                     }

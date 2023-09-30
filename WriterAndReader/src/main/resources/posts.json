@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "content": "genius",
+    "created": "cre",
+    "updated": "tytyt",
+    "labels": [
+      {
+        "id": 123,
+        "name": "gigant",
+        "state": "UNDER_REVIEW"
+      }
+    ],
+    "state": "UNDER_REVIEW"
+  }
+]

@@ -1,13 +1,9 @@
-package org.example;
-
-import org.example.labelObject.LabelView;
-import org.example.postObject.PostViewer;
-import org.example.writerObject.WriterView;
+package org.abdul.crudApp.view;
 
 import java.util.Scanner;
 
 public class GeneralView {
-    public static void main(String[] args) {
+    public void startRun() {
         Scanner scanner = new Scanner(System.in);
         LabelView labelView = new LabelView();
         PostViewer postViewer = new PostViewer();
